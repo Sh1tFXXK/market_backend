@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.market_backend.Mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="org.example.market_backend.Entity.User">
+            <id property="id" column="id" />
+            <result property="username" column="username" />
+            <result property="password" column="password" />
+            <result property="nickname" column="nickname" />
+            <result property="avatar" column="avatar" />
+            <result property="phone" column="phone" />
+            <result property="email" column="email" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,username,password,nickname,avatar,phone,email,create_time,update_time
+    </sql>
+    
+    <!-- 根据token查询用户信息 -->
+    <select id="findUserByToken" parameterType="java.lang.String" resultType="org.example.market_backend.Entity.User">
+        SELECT * FROM user WHERE token = #{token}
+    </select>
+    
+    <!-- 更新用户信息 -->
+    <update id="updateUserInfo">
+        UPDATE user
+        <set>
+            <if test="update.userName != null">user_name = #{update.userName},</if>
+            <if test="update.password != null">password = #{update.password},</if>
+            <if test="update.userAvatar != null">user_avatar = #{update.userAvatar},</if>
+            <if test="update.mobile != null">mobile = #{update.mobile},</if>
+            <if test="update.sign != null">sign = #{update.sign},</if>
+            <if test="update.source != null">source = #{update.source},</if>
+            <if test="update.loginCounts != null">login_counts = #{update.loginCounts},</if>
+            <if test="update.lastLoginTime != null">last_login_time = #{update.lastLoginTime},</if>
+            <if test="update.loginStatus != null">login_status = #{update.loginStatus},</if>
+            <if test="update.status != null">status = #{update.status},</if>
+            <if test="update.remark != null">remark = #{update.remark},</if>
+            <if test="update.deviceId != null">device_id = #{update.deviceId},</if>
+            <if test="update.clientVersion != null">client_version = #{update.clientVersion},</if>
+            <if test="update.token != null">token = #{update.token},</if>
+            <if test="update.tokenExpired != null">token_expired = #{update.tokenExpired},</if>
+            <if test="update.address != null">address = #{update.address},</if>
+            <if test="update.updateTime != null">update_time = #{update.updateTime},</if>
+        </set>
+        WHERE user_id = #{user.userId}
+    </update>
+    
+</mapper>

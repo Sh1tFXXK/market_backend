@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.market_backend.Mapper.ChatDetailMapper">
+    <resultMap id="BaseResultMap" type="org.example.market_backend.Entity.ChatDetail">
+            <id property="id" column="id" />
+            <result property="chatId" column="chat_id" />
+            <result property="userId" column="user_id" />
+            <result property="userName" column="user_name" />
+            <result property="userAvatar" column="user_avatar" />
+            <result property="content" column="content" />
+            <result property="type" column="type" />
+            <result property="isLastest" column="is_lastest" />
+            <result property="caeateTime" column="caeate_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,chat_id,user_id,user_name,user_avatar,content,
+        type,is_lastest,caeate_time,update_time
+    </sql>
+</mapper> 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.market_backend.Mapper.ChatListMapper">
+    <resultMap id="BaseResultMap" type="org.example.market_backend.Entity.ChatList">
+            <id property="id" column="id" />
+            <result property="chatId" column="chat_id" />
+            <result property="pruductId" column="pruduct_id" />
+            <result property="userId" column="user_id" />
+            <result property="userName" column="user_name" />
+            <result property="userAvatar" column="user_avatar" />
+            <result property="isOnline" column="is_online" />
+            <result property="unread" column="unread" />
+            <result property="status" column="status" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="anotherUserId" column="another_user_id" />
+            <result property="anotherUserName" column="anoth_user_name" />
+            <result property="anotherUserAvatar" column="another_user_avatar" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,chat_id,pruduct_id,user_id,user_name,user_avatar,
+        is_online,unread,status,create_time,update_time,
+        another_user_id,anoth_user_name,another_user_avatar
+    </sql>
+
+    <select id="selectChatList" resultType="org.example.market_backend.BO.ChatBO">
+        select 
+            cl.*,
+            p.product_imgs as productImgs,
+            p.product_price as productPrice,
+            cd.content as lastChatContent
+        from chat_list cl
+        left join product p on cl.pruduct_id = p.id
+        left join chat_detail cd on cl.chat_id = cd.chat_id and cd.is_lastest = 1
+        where cl.user_id = #{userId}
+        and cl.status = 1
+        order by cl.update_time desc
+    </select>
+</mapper> 
